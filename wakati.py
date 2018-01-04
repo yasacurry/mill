@@ -12,8 +12,8 @@ data_frame = pandas.read_csv(csv_name, encoding="utf-8", names=csv_header)
 
 parts = ["名詞", "動詞", "形容詞", "副詞", "未知語"]
 
-# URL, hashtags, screen_name
-regex = r"https?://[a-zA-Z0-9\.\-_/]+|#.+?|@[a-zA-Z0-9_]+"
+# URL, screen_name, 記号
+regex = r"https?://[a-zA-Z0-9\.\-_/]+|@[a-zA-Z0-9_]+|[^ぁ-んァ-ンーa-zA-Z0-9一-龠０-９]"
 
 tagger = MeCab.Tagger("-Ochasen")
 # https://qiita.com/kasajei/items/0805b433f363f1dba785 と同じ症状になったので一回parseをする
@@ -22,7 +22,7 @@ tagger.parse("")
 writer = open(wakati_name, "w")
 
 for text in data_frame["text"]:
-    newtext = re.sub(regex, "", text)
+    newtext = re.sub(regex, " ", text)
     node = tagger.parseToNode(newtext)
 
     while node:
