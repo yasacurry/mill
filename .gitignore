@@ -1,3 +1,5 @@
 *.csv
 *.wakati
 *.model
+*.markov
+
